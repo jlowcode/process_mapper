@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<form>
+    <fields addfieldpath="/administrator/components/com_fabrik/models/fields" name="params">
+        <fieldset name="plg-list-process_mapper" label="COM_FABRIK_OPTIONS">
+            <field name="pmapper_access"
+                   type="accesslevel"
+                   default="1"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ACCESS_LABEL"
+                   repeat="true"
+            />
+
+            <field name="pmapper_button_label"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_BUTTON_LABEL_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_BUTTON_LABEL_DESC"
+                   size="30"
+                   type="text"
+            />
+
+            <field name="pmapper_bpmn"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_BPMN_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_BPMN_DESC"
+                   size="30"
+                   type="listfields"
+            />
+
+            <field name="pmapper_status"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_STATUS_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_STATUS_DESC"
+                   size="30"
+                   type="listfields"
+            />
+
+            <field name="pmapper_status_update"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_STATUS_UPDATE_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_STATUS_UPDATE_DESC"
+                   size="30"
+                   type="text"
+            />
+        </fieldset>
+
+        <fieldset name="plg-list-process_mapper_elements" label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS">
+            <field name="pme_connection"
+                   type="connections"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_CONNECTION_DESC"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_CONNECTION_LABEL"
+                   repeat="true"
+            />
+
+            <field name="pme_table"
+                   type="fabriktables"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_TABLE_DESC"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_TABLE_LABEL"
+                   observe="params_pme_connection"
+                   repeat="true"
+            />
+
+            <field name="pme_titulo"
+                   type="element"
+                   connection="params_pme_connection"
+                   table="params_pme_table"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_TITULO_LABEL"
+                   repeat="true"
+            />
+
+            <field name="pme_bpmn_id"
+                   type="element"
+                   connection="params_pme_connection"
+                   table="params_pme_table"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_BPMN_ID_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_BPMN_ID_DESC"
+                   repeat="true"
+            />
+
+            <field name="pme_process"
+                   type="element"
+                   connection="params_pme_connection"
+                   table="params_pme_table"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_PROCESSO_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_PROCESSO_DESC"
+                   repeat="true"
+            />
+
+            <field name="pme_tipo"
+                   type="element"
+                   connection="params_pme_connection"
+                   table="params_pme_table"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_TIPO_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_TIPO_DESC"
+                   repeat="true"
+            />
+
+            <field name="pme_etapa_anterior"
+                   type="element"
+                   connection="params_pme_connection"
+                   table="params_pme_table"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_ETAPA_ANTERIOR_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_ETAPA_ANTERIOR_DESC"
+                   repeat="true"
+            />
+
+            <field name="pme_bpmn_xml"
+                   type="element"
+                   connection="params_pme_connection"
+                   table="params_pme_table"
+                   label="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_BPMN_XML_LABEL"
+                   description="PLG_FABRIK_LIST_PROCESS_MAPPER_ELEMENTS_BPMN_XML_DESC"
+                   repeat="true"
+            />
+        </fieldset>
+    </fields>
+</form>
