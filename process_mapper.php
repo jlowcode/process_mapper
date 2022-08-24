@@ -80,13 +80,22 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
                         if ($result) {
                             $el->mapped = true;
                             $el->id = $result['id'];
-                            if ($el->xml !== $result[$infos['xml']]) {
-                                $el->notes .= "Desatualizado<br>";
+
+                            $elxml = crypt($el->xml,'rl');
+                            $resultinfos = crypt($result[$infos['xml']],'rl');
+
+                            // if ($el->xml != $result[$infos['xml']]) {
+                            //     $el->notes .= "Desatualizado<br>" ;
+                            // }
+                            if ($elxml != $resultinfos) {
+                                $el->notes .= "Desatualizado<br>" ;
+                                $el->mapped = false;
+
                             }
-                            if ($el->titulo !== $result['titulo']) {
+                            if ($el->titulo != $result['titulo']) {
                                 $el->notes .= "- Elemento '{$infos['titulo']}' foi alterado no diagrama.<br>";
                             }
-                            if ($el->tipo !== $result['tipo']) {
+                            if ($el->tipo != $result['tipo']) {
                                 $el->notes .= "- Elemento '{$infos['tipo']}' foi alterado no diagrama.<br>";
                             }
                         }

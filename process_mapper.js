@@ -203,7 +203,7 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
                     a_link.setAttribute('href', "javascript:window.open('" + Fabrik.liveSite + "index.php?option=com_fabrik&view=form&formid=" + this.options.infos.form_id + "&rowid=" + rows[i].id + "','_blank')");
                     a_link.setAttribute('target', '');
                     a_link.setAttribute('formvalue', this.options.infos.form_id);
-                    a_link.innerHTML = 'Atualizar';
+                    a_link.innerHTML = 'Mapeado';
                 }
                 else {
                     a_link.setAttribute('href', '#');
