@@ -199,11 +199,39 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
                         });
                     }
                 }
+                else if (rows[i].updated == false){
+                    a_link.setAttribute('href', '#');
+                    a_link.setAttribute('id', i);
+                    a_link.innerHTML = 'Atualizar';
+                    a_link.onclick = function() {
+                        jQuery.ajax ({
+                            url: Fabrik.liveSite + 'index.php',
+                            method: "POST",
+                            data: {
+                                'option': 'com_fabrik',
+                                'format': 'raw',
+                                'task': 'plugin.pluginAjax',
+                                'plugin': 'process_mapper',
+                                'method': 'updateProcessStatus',
+                                'g': 'list',
+                                'elementRow': self.options.processElements[this.getAttribute('id')],
+                                'infos': self.options.infos
+                            }
+                        }).done ((data) => {
+                            this.setAttribute('href', "#");
+                            this.setAttribute('formvalue', self.options.infos.form_id);
+                            this.innerHTML = "Atualizado";
+                            self.options.processElements[this.getAttribute('id')].mapped = true;
+                            self.options.processElements[this.getAttribute('id')].notes = "";
+                        });
+                    }
+                }
                 else if (rows[i].mapped) {
                     a_link.setAttribute('href', "javascript:window.open('" + Fabrik.liveSite + "index.php?option=com_fabrik&view=form&formid=" + this.options.infos.form_id + "&rowid=" + rows[i].id + "','_blank')");
                     a_link.setAttribute('target', '');
                     a_link.setAttribute('formvalue', this.options.infos.form_id);
                     a_link.innerHTML = 'Mapeado';
+                    // a_link.innerHTML = 'Atualizar';
                 }
                 else {
                     a_link.setAttribute('href', '#');
@@ -224,11 +252,12 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
                                 'infos': self.options.infos
                             }
                         }).done ((data) => {
-                            this.setAttribute('href', "javascript:window.open('" + Fabrik.liveSite + "index.php?option=com_fabrik&view=form&formid=" + self.options.infos.form_id + "&rowid=" + data + "','_blank')");
-                            this.setAttribute('target', '');
-                            this.setAttribute('formvalue', self.options.infos.form_id);
-                            this.innerHTML = "Atualizar";
-                            this.onclick = function () {};
+                            //this.setAttribute('href', "javascript:window.open('" + Fabrik.liveSite + "index.php?option=com_fabrik&view=form&formid=" + self.options.infos.form_id + "&rowid=" + data + "','_blank')");
+                            //this.setAttribute('target', '');
+                            //this.setAttribute('formvalue', self.options.infos.form_id);
+                            this.innerHTML = "Mapeado";
+                            // this.innerHTML = "Atualizar";
+                            //this.onclick = function () {};
                             self.options.processElements[this.getAttribute('id')].mapped = true;
                         });
                     }
@@ -259,7 +288,7 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
                     var userTask = false;
                     for (i=0; i<rows.length; i++) {
                         if (rows[i].mapped === false) {
-                            mapped = false;
+                            mapped = false;   
                         }
                         if (rows[i].tipo === 'userTask') {
                             userTask = true;

@@ -69,6 +69,7 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
                         $el->xml = $dom->saveXML($element);
                         $el->delete = false;
                         $el->mapped = false;
+                        $el->updated = true;
                         $el->notes = '';
                         $el->etapaAnterior = $etapaAnterior;
                         $etapaAnterior = $el->bpmn_id;
@@ -84,19 +85,17 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
                             $elxml = crypt($el->xml,'rl');
                             $resultinfos = crypt($result[$infos['xml']],'rl');
 
-                            // if ($el->xml != $result[$infos['xml']]) {
-                            //     $el->notes .= "Desatualizado<br>" ;
-                            // }
                             if ($elxml != $resultinfos) {
-                                $el->notes .= "Desatualizado<br>" ;
-                                $el->mapped = false;
-
+                                $el->notes .= "Desatualizado<br>";
+                                $el->updated = false;
                             }
-                            if ($el->titulo != $result['titulo']) {
+                            if ($el->titulo !== $result['titulo']) {
                                 $el->notes .= "- Elemento '{$infos['titulo']}' foi alterado no diagrama.<br>";
+                                $el->updated = false;
                             }
-                            if ($el->tipo != $result['tipo']) {
+                            if ($el->tipo !== $result['tipo']) {
                                 $el->notes .= "- Elemento '{$infos['tipo']}' foi alterado no diagrama.<br>";
+                                $el->updated = false;
                             }
                         }
 
@@ -162,7 +161,7 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
     public function onDeleteElement() {
         $row = $_POST['elementRow'];
         $infos = $_POST['infos'];
-
+        
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->delete($infos['table'])->where('id = ' . (int) $row['id']);
@@ -171,19 +170,47 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
     }
 
     public function onUpdateProcessStatus() {
-        $elementStatus = $_POST['elementStatus'];
-        $statusValue = $_POST['statusValue'];
-        $table = $_POST['table'];
-        $processId = $_POST['processId'];
-
+        $row = $_POST['elementRow'];
+        $infos = $_POST['infos'];
+      
         $db = JFactory::getDbo();
-        $obj = new stdClass();
-        $obj->id = $processId;
-        $obj->$elementStatus = $statusValue;
+        $insert = array();
+        $insert['id'] = $row['id'];
+        $insert[$infos['titulo']] = $row['titulo'];
+        $insert[$infos['bpmn_id']] = $row['bpmn_id'];
+        $insert[$infos['processo']] = $row['processo'];
+        $insert[$infos['tipo']] = $row['tipo'];
+        $insert[$infos['xml']] = $row['xml'];
 
-        $update = $db->updateObject($table, $obj, 'id');
+        if ($row['etapaAnterior'] !== '') {
+            $query = $db->getQuery(true);
+            $query->select('id')->from($infos['table'])->where("{$infos['bpmn_id']} = '{$row['etapaAnterior']}'");
+            $db->setQuery($query);
+            $etapaAnterior = $db->loadResult();
+            if ($etapaAnterior) {
+                $insert[$infos['etapaAnterior']] = $etapaAnterior;
+            }
+        }
+
+        $insert = (Object) $insert;
+
+        $update = $db->updateObject($infos['table'], $insert, 'id');
 
         echo $update;
+
+        // $elementStatus = $_POST['elementStatus'];
+        // $statusValue = $_POST['statusValue'];
+        // $table = $_POST['table'];
+        // $processId = $_POST['processId'];
+
+        // $db = JFactory::getDbo();
+        // $obj = new stdClass();
+        // $obj->id = $processId;
+        // $obj->$elementStatus = $statusValue;
+
+        // $update = $db->updateObject($table, $obj, 'id');
+
+        // echo $update;
     }
 
     protected function getInfos() {
