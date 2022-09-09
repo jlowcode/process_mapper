@@ -33,7 +33,7 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
             var buttonClose = document.createElement('span');
             buttonClose.setAttribute('class', 'process_mapper-modal-close');
             buttonClose.innerHTML = '&times;';
-            var title = document.createElement('h2');
+            var title = document.createElement('h4');
             title.innerHTML = 'Mapeamento';
             modalHeader.appendChild(buttonClose);
             modalHeader.appendChild(title);
@@ -59,13 +59,13 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
             var validateButton = document.createElement('button');
             validateButton.setAttribute('class', 'btn btn-default');
             validateButton.setAttribute('id', 'validateButton');
-            validateButton.setAttribute('style', 'margin: 10px')
+            validateButton.setAttribute('style', 'margin: 5px')
             validateButton.innerHTML = "Validar";
 
             var mapearTudoButton = document.createElement('button');
             mapearTudoButton.setAttribute('class', 'btn btn-default');
             mapearTudoButton.setAttribute('id', 'mapearTudo');
-            mapearTudoButton.setAttribute('style', '');
+            mapearTudoButton.setAttribute('style', 'margin: 5px');
             mapearTudoButton.innerHTML = "Mapear Tudo";
 
             modalFooter.appendChild(validateButton);
@@ -232,6 +232,8 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
                     a_link.setAttribute('formvalue', this.options.infos.form_id);
                     a_link.innerHTML = 'Mapeado';
                     // a_link.innerHTML = 'Atualizar';
+                } else if (rows[i].tipo == 'textAnnotation' || rows[i].tipo == 'association' || rows[i].tipo == 'laneSet'){     
+                    a_link.innerHTML = 'Ignorar';
                 }
                 else {
                     a_link.setAttribute('href', '#');

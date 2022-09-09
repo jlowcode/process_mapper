@@ -15,28 +15,40 @@
 /* Modal Header */
 .process_mapper-modal-header {
     padding: 2px 16px;
-    background-color: #58ACFA;
+    background-color: #1a3867;
     color: white;
+    height: 5%;
+}
+
+.process_mapper-modal-header h4{
+    margin: 0px;
+    font-weight: 400;
 }
 
 /* Modal Body */
-.process_mapper-modal-body {padding: 10px 16px;}
+.process_mapper-modal-body {
+    padding: 10px 16px; 
+    height: 88%;
+    overflow-y: scroll;
+}
 
 /* Modal Footer */
 .process_mapper-modal-footer {
     padding: 2px 16px;
-    background-color: #58ACFA;
+    background-color: #1a3867;
     color: white;
+    height: 7%;
 }
 
 /* Modal Content */
 .process_mapper-modal-content {
     position: relative;
     background-color: #fefefe;
-    margin: 30px auto;
+    margin: 0px auto;
     padding: 0;
     border: 1px solid #888;
-    width: 95%;
+    width: 100%;
+    height: 100%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
     animation-duration: 0.4s
@@ -47,18 +59,22 @@
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
 }
+.bjs-powered-by{
+    color: #fff !important;
+}
 
 /* The Close Button */
 .process_mapper-modal-close {
-    color: #aaa;
+    color:#fff;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
+    margin-top: -10px;
 }
 
 .process_mapper-modal-close:hover,
 .process_mapper-modal-close:focus {
-    color: black;
+    color: #cfcfcf;
     text-decoration: none;
     cursor: pointer;
 }
