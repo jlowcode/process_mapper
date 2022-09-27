@@ -167,7 +167,13 @@ define (["jquery", "fab/list-plugin"], function (jQuery, FbListPlugin) {
             var rows = this.options.processElements;
             var self = this;
             for (i=0; i<rows.length; i++) {
+                if (rows[i].titulo == ''){
+                    continue;
+                }
                 tr = document.createElement('tr');
+                if (!rows[i].mapped || rows[i].updated == false){
+                    tr.style.color = '#bd362f';
+                }
                 td1 = document.createElement('td');
                 td1.innerHTML = rows[i].titulo;
                 td2 = document.createElement('td');
