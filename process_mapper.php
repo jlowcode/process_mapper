@@ -98,9 +98,12 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
                                 $el->updated = false;
                             }
                         }
-
-                        $els[] = $el;
-                        $bpmn_ids[] = $el->bpmn_id;
+                        
+                        $gatways = array('complexGateway', 'eventBasedGateway', 'exclusiveGateway', 'parallelGateway', 'inclusiveGateway');
+                        if (!in_array($el->tipo, $gatways)) { 
+                            $els[] = $el;
+                            $bpmn_ids[] = $el->bpmn_id;
+                        }
                     }
                 }
             }
@@ -112,16 +115,18 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
 
 
         foreach ($result as $item) {
-            if (!in_array($item[$infos['bpmn_id']], $bpmn_ids)) {
-                $el = new stdClass();
-                $el->id = $item['id'];
-                $el->titulo = $item[$infos['titulo']];
-                $el->tipo = $item[$infos['tipo']];
-                $el->bpmn_id = $item[$infos['bpmn_id']];
-                $el->processo = $processId;
-                $el->delete_el = true;
-                $el->notes = '- O elemento não existe no diagrama.<br>';
-                $els[] = $el;
+            if ($item['tipo']  != ''  && $item['bpmn_id'] != ''){
+                if (!in_array($item[$infos['bpmn_id']], $bpmn_ids)) {
+                    $el = new stdClass();
+                    $el->id = $item['id'];
+                    $el->titulo = $item[$infos['titulo']];
+                    $el->tipo = $item[$infos['tipo']];
+                    $el->bpmn_id = $item[$infos['bpmn_id']];
+                    $el->processo = $processId;
+                    $el->delete_el = true;
+                    $el->notes = '- O elemento não existe no diagrama.<br>';
+                    $els[] = $el;
+                }
             }
         }
 
