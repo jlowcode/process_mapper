@@ -99,7 +99,7 @@ class PlgFabrik_ListProcess_mapper extends PlgFabrik_List
                             }
                         }
                         
-                        $gatways = array('complexGateway', 'eventBasedGateway', 'exclusiveGateway', 'parallelGateway', 'inclusiveGateway');
+                        $gatways = array('complexGateway', 'eventBasedGateway', 'parallelGateway', 'inclusiveGateway');
                         if (!in_array($el->tipo, $gatways)) { 
                             $els[] = $el;
                             $bpmn_ids[] = $el->bpmn_id;
